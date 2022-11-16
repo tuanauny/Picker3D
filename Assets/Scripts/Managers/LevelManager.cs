@@ -14,11 +14,11 @@ namespace Managers
 
         [SerializeField] private Transform levelHolder;
         [SerializeField] private int levelID;
-        [SerializeField] private int totalLevelCount;
 
         #endregion
 
         #region Private Variables
+        private int _totalLevelCount;
 
         private LevelData _data;
 
@@ -32,6 +32,7 @@ namespace Managers
         private void Awake()
         {
             _data = GetLevelData();
+            _totalLevelCount = GetTotalLevelCount();
             levelID = GetLevelID();
 
             Init();
@@ -61,6 +62,7 @@ namespace Managers
         }
 
         private LevelData GetLevelData() => Resources.Load<CD_Level>("Data/CD_Level").LevelList[levelID];
+        private int GetTotalLevelCount() => Resources.Load<CD_Level>("Data/CD_Level").LevelList.Count;
 
         private int GetLevelID()
         {
