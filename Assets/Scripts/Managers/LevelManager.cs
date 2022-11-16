@@ -48,17 +48,26 @@ namespace Managers
 
         private void SubscribeEvents()
         {
+            CoreGameSignals.Instance.onLevelInitialize += _levelLoader.Execute;
+            CoreGameSignals.Instance.onClearActiveLevel += _levelDestroyer.Execute;
+            CoreGameSignals.Instance.onNextLevel += OnNextLevel;
+            CoreGameSignals.Instance.onRestartLevel += OnRestartLevel;
+
         }
 
         private void UnsubscribeEvents()
         {
+            CoreGameSignals.Instance.onLevelInitialize -= _levelLoader.Execute;
+            CoreGameSignals.Instance.onClearActiveLevel -= _levelDestroyer.Execute;
+            CoreGameSignals.Instance.onNextLevel -= OnNextLevel;
+            CoreGameSignals.Instance.onRestartLevel -= OnRestartLevel;
         }
 
         private void OnDisable() => UnsubscribeEvents();
 
         private void Start()
         {
-            OnInitializeLevel(levelID);
+            _levelLoader.Execute(levelID);
         }
 
         private LevelData GetLevelData() => Resources.Load<CD_Level>("Data/CD_Level").LevelList[levelID];
@@ -78,6 +87,21 @@ namespace Managers
         private void OnClearActiveLevel()
         {
             _levelDestroyer.Execute();
+        }
+
+        private void OnNextLevel()
+        {
+            levelID++;
+            CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
+            CoreGameSignals.Instance.onReset?.Invoke();
+            CoreGameSignals.Instance.onLevelInitialize?.Invoke(levelID);
+        }
+
+        private void OnRestartLevel()
+        {
+            CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
+            CoreGameSignals.Instance.onReset?.Invoke();
+            CoreGameSignals.Instance.onLevelInitialize?.Invoke(levelID);
         }
     }
 }
