@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum UIPanelTypes
+
+namespace Enums
 {
-    Fail,
-    Win,
-    Start,
-    Level
+    public enum UIPanelTypes
+    {
+        Fail,
+        Win,
+        Start,
+        Level
+    }
 }

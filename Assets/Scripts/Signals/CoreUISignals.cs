@@ -1,29 +1,30 @@
+using Enums;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CoreUISignals : MonoBehaviour
+namespace Signals
 {
-    #region Singleton
-
-    public static CoreUISignals Instance;
-
-    private void Awake()
+    public class CoreUISignals : MonoBehaviour
     {
-        if (Instance != null && Instance != this)
+        #region Singleton
+
+        public static CoreUISignals Instance;
+
+        private void Awake()
         {
-            Destroy(gameObject);
-            return;
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
         }
 
-        Instance = this;
+        #endregion
+
+        public UnityAction<UIPanelTypes, int> onOpenPanel = delegate { };
+        public UnityAction<int> onClosePanel = delegate { };
+        public UnityAction onCloseAllPanels = delegate { };
     }
-
-    #endregion
-
-
-    public UnityAction<UIPanelTypes, int> onOpenPanel = delegate { };
-    public UnityAction <int> onClosePanel = delegate { };
-    public UnityAction onCloseAllPanels = delegate { };
-
-
 }

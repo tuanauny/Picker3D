@@ -3,6 +3,7 @@ using Command;
 using Data.UnityObjects;
 using Data.ValueObjects;
 using UnityEngine;
+using Signals;
 
 namespace Managers
 {
@@ -79,15 +80,7 @@ namespace Managers
             return ES3.KeyExists("Level") ? ES3.Load<int>("Level") : 0;
         }
 
-        private void OnInitializeLevel(int ID)
-        {
-            _levelLoader.Execute(ID);
-        }
-
-        private void OnClearActiveLevel()
-        {
-            _levelDestroyer.Execute();
-        }
+        
 
         private void OnNextLevel()
         {
