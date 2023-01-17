@@ -1,11 +1,6 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.Events;
+﻿using Enums;
 using Signals;
-using Enums;
-
-
+using UnityEngine;
 
 namespace Managers
 {

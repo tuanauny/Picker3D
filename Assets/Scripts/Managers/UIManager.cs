@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Enums;
 using Signals;
 using UnityEngine;
@@ -49,6 +49,7 @@ namespace Managers
         {
             CoreGameSignals.Instance.onPlay?.Invoke();
             CoreUISignals.Instance.onClosePanel?.Invoke(1);
+            CameraSignals.Instance.onSetCameraTarget?.Invoke();
         }
 
         private void OnLevelInitialize(int levelValue)
